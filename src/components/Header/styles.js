@@ -7,10 +7,10 @@ export const header = css`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #dbdbdb;
   box-sizing: border-box;
   background-color: #f1f1f1ff;
-  box-shadow: 0px 0px 5px 0px rgba(142, 142, 142, 0.75);
+  /* box-shadow: 0px 0px 5px 0px rgba(142, 142, 142, 0.75); */
+  border-bottom: 1px solid #dadadaff;
   z-index: 200;
 
   & > div {
@@ -39,6 +39,10 @@ export const header = css`
       & > li:hover {
         transform: translateY(-2px);
       }
+    }
+
+    & > ul:first-of-type {
+      font-weight: 500;
     }
   }
 `;

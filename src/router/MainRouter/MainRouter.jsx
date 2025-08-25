@@ -11,6 +11,7 @@ function MainRouter() {
         <Route path="/" element={<Home />} />
         <Route path="/board" element={<Board />} />
         <Route path="/write" element={<Write />} />
+        {/* 중첩 라우터 */}
         <Route path="/auth/*" element={<AuthRouter />} />
       </Routes>
     </>
