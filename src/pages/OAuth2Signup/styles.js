@@ -67,7 +67,6 @@ export const signinBtnBox = css`
     &:hover {
       background-color: #0d6efd;
       color: white;
-      border: none;
     }
   }
 `;

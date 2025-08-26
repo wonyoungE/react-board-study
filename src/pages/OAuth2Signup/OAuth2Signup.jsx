@@ -20,7 +20,7 @@ function OAuth2Signup() {
   useEffect(() => {
     emailRef.current.readOnly = true;
     emailRef.current.style.opacity = "0.8";
-  }, []);
+  }, []); // 컴포넌트 마운트 시 한 번만 실행
 
   const signupOnClickHandler = () => {
     const newErrors = {};

@@ -3,12 +3,12 @@ import { Link, useNavigate } from "react-router-dom";
 import * as s from "./styles";
 import { LuLogIn, LuLogOut, LuUserRoundPlus } from "react-icons/lu";
 import { useQueryClient } from "@tanstack/react-query";
-import { GoPerson } from "react-icons/go";
 import { IoPersonOutline } from "react-icons/io5";
 
 function Header() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  // 캐시에 저장되어있는 getPrincipal 가져오기
   const principalData = queryClient.getQueryData(["getPrincipal"]);
 
   const onClickNavHandler = (path) => {
@@ -28,7 +28,7 @@ function Header() {
       <div>
         <ul>
           <li>
-            <Link to={"/board"}>게시판</Link>
+            <Link to={"/board/list"}>게시판</Link>
           </li>
           <li>
             <Link to={"/write"}>글쓰기</Link>
