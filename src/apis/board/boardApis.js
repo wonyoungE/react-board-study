@@ -19,3 +19,22 @@ export const getBoardDetailRequest = async (boardId) => {
     return error.response;
   }
 };
+
+// 게시물 등록 요청 함수
+export const addBoardRequest = async (data) => {
+  instance.interceptors.request.use((config) => {
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
+    }
+
+    return config;
+  });
+
+  try {
+    const response = await instance.post("/board/add", data);
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};

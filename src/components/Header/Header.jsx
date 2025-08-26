@@ -39,7 +39,12 @@ function Header() {
         {principalData ? (
           <>
             <ul>
-              <li css={s.headerIcon}>
+              <li
+                css={s.headerIcon}
+                onClick={() => {
+                  navigate(`/profile/${principalData.data.data.userId}`);
+                }}
+              >
                 <IoPersonOutline />
               </li>
               <li css={s.headerIcon} onClick={onClickLogout}>

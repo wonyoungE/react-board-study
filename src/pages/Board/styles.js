@@ -18,7 +18,7 @@ export const top = css`
     width: 100%;
     height: 200px;
     object-fit: cover;
-    object-position: 0 -330px;
+    object-position: 0 -300px;
   }
 
   & > div {
@@ -96,6 +96,26 @@ export const boardTable = css`
 
   & td:nth-of-type(3) {
     width: 100px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    & > p {
+      display: none;
+      font-size: 12px;
+      position: absolute;
+      right: 0;
+      bottom: -30%;
+    }
+
+    &:hover {
+      text-decoration: underline;
+      font-weight: 500;
+
+      & > p {
+        display: block;
+      }
+    }
   }
 
   & td:last-of-type {

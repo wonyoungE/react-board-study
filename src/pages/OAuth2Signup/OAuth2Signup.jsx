@@ -2,13 +2,15 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import * as s from "./styles";
 import { useRef, useState, useEffect } from "react";
 import AuthInput from "../../components/AuthInput/AuthInput";
+import { oAuth2SignupRequest } from "../../apis/auth/authApis";
 
 /** @jsxImportSource @emotion/react */
 function OAuth2Signup() {
-  const [searchParam] = useSearchParams();
   const navigate = useNavigate();
+  const [searchParam] = useSearchParams();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
   const [confirmPassword, setconfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
 
@@ -18,9 +20,24 @@ function OAuth2Signup() {
   const emailRef = useRef(null);
 
   useEffect(() => {
-    emailRef.current.readOnly = true;
-    emailRef.current.style.opacity = "0.8";
-  }, []); // 컴포넌트 마운트 시 한 번만 실행
+    setEmail(searchParam.get("email"));
+    emailRef.current.disabled = true;
+  }, [searchParam]); // 컴포넌트 마운트 시 한 번만 실행
+
+  useEffect(() => {
+    const newErrors = {};
+    if (password.length > 0) {
+      const passwordRegex =
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
+
+      if (!passwordRegex.test(password)) {
+        newErrors.password =
+          "최소 8자, 하나의 문자, 숫자 및 특수 문자를 포함해야 합니다.";
+      }
+    }
+
+    setErrors(newErrors);
+  }, [password]);
 
   const signupOnClickHandler = () => {
     const newErrors = {};
@@ -44,6 +61,27 @@ function OAuth2Signup() {
     setErrors(newErrors);
 
     // 회원가입 요청 API
+    oAuth2SignupRequest({
+      username: username,
+      password: password,
+      email: email,
+      provider: searchParam.get("provider"),
+      providerUserId: searchParam.get("providerUserId"),
+    })
+      .then((resp) => {
+        console.log(resp);
+        if (resp.data.status === "success") {
+          alert("회원가입 되었습니다.");
+          navigate("/auth/signin");
+        } else {
+          alert(resp.data.message);
+          return;
+        }
+      })
+      .catch((error) => {
+        alert("문제가 발생했습니다. 다시 시도해주세요.");
+        return;
+      });
   };
 
   return (
@@ -78,7 +116,7 @@ function OAuth2Signup() {
           <AuthInput
             type="email"
             placeholder="이메일"
-            state={searchParam.get("email")}
+            state={email}
             ref={emailRef}
           />
         </div>

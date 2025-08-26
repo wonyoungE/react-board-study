@@ -11,6 +11,8 @@ export const container = css`
   box-shadow: 0px 0px 5px 0px rgba(142, 142, 142, 0.7);
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const title = css`
@@ -21,7 +23,9 @@ export const title = css`
   border: 1px solid #dbdbdb;
   border-radius: 8px;
   box-sizing: border-box;
-  font-size: 16px;
+  background-color: transparent;
+  font-size: 18px;
+  color: #333;
 
   &:focus {
     outline: 2px solid #555;
@@ -30,31 +34,44 @@ export const title = css`
 
 export const content = css`
   width: 100%;
-  min-height: calc(500px - 40px - 40px);
+  height: calc(500px - 40px - 40px);
   border-radius: 8px;
   box-sizing: border-box;
   padding: 10px 15px;
   border: 1px solid #dbdbdb;
   resize: none;
   font-size: 16px;
+  color: #333;
   font-family: inherit;
   margin-bottom: 12px;
+  overflow-y: auto;
 
   &:focus {
     outline: 2px solid #555;
   }
 `;
 
-export const addBtn = css`
-  border: none;
-  border-radius: 8px;
-  padding: 10px 15px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: all 0.2 ease;
+export const btnBox = css`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 
-  &:hover {
-    font-weight: 500;
-    background-color: #dbdbdb;
+  & > button {
+    border: none;
+    border-radius: 8px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: all 0.2 ease;
+    background-color: #0d62fd;
+    color: white;
+    box-sizing: border-box;
+    border: 1px solid #dbdbdb;
+
+    &:hover {
+      font-weight: 500;
+      background-color: white;
+      color: #0d62fd;
+    }
   }
 `;

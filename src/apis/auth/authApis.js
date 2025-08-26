@@ -28,3 +28,23 @@ export const signinRequest = async (data) => {
     return error.response;
   }
 };
+
+// oauth2 회원가입 요청 함수
+export const oAuth2SignupRequest = async (data) => {
+  try {
+    const response = await instance.post("/oauth2/signup", data);
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+// oauth2 계정 연동 요청 함수
+export const oAuth2MergeRequest = async (data) => {
+  try {
+    const response = await instance.post("/oauth2/merge", data);
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};

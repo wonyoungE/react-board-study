@@ -11,7 +11,7 @@ function OAuth2Signin() {
     localStorage.setItem("accessToken", accessToken);
     // navigate("/"); // 이렇게 하면 새로고침이 아닌 컴포넌트 갈아끼우기가 돼서 localStorage에 accessToken이 저장돼도 헤더가 안바뀜
     window.location.href = "/";
-  }, []);
+  }, [searchParam]);
 
   return (
     <div css={s.container}>

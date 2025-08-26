@@ -47,6 +47,7 @@ function Signin() {
         if (resp.data.status === "success") {
           localStorage.setItem("accessToken", resp.data.data);
           window.location.href = "/"; // 컴포넌트를 바꾸는 식이 아닌 페이지 새로고침
+          // 컴포넌트를 바꾸는 방식으로는 헤더가 변경되지 않음
         } else if (resp.data.status === "failed") {
           alert(resp.data.message);
           return;

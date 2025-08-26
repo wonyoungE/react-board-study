@@ -65,7 +65,14 @@ function Board() {
                 >
                   {board.title}
                 </td>
-                <td>{board.user.username}</td>
+                <td
+                  onClick={() => {
+                    navigate(`/profile/${board.user.userId}`);
+                  }}
+                >
+                  {board.user.username}
+                  <p>프로필 보기</p>
+                </td>
                 <td>{board.createDt.split("T")[0]}</td>
               </tr>
             ))}
