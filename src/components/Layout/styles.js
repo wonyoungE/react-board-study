@@ -1,11 +1,12 @@
 import { css } from "@emotion/react";
 
 export const layout = css`
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  /* height: 100vh; */
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow-y: auto;
 `;
 
 export const mainContainer = css`

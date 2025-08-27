@@ -2,11 +2,10 @@ import { css } from "@emotion/react";
 
 export const container = css`
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  padding-bottom: 10px;
 `;
 
 export const top = css`
@@ -24,7 +23,7 @@ export const top = css`
   & > div {
     display: flex;
     justify-content: space-between;
-    margin: 10px;
+    margin: 10px 0;
 
     & > h2 {
       margin: 0;
@@ -55,20 +54,20 @@ export const top = css`
 
 export const tableContainer = css`
   width: 100%;
-  height: 450px;
-  overflow-y: auto;
+  /* height: 300px; */
+  box-sizing: border-box;
 `;
 
 export const boardTable = css`
   width: 100%;
-  overflow-y: auto;
   border-collapse: collapse;
+  color: #333;
+  box-sizing: border-box;
 
   & th {
-    border-top: 2px solid #0d64e6ff;
-    border-bottom: 1px solid #0d64e6ff;
+    border-top: 3px solid #0d64e6ff;
+    border-bottom: 2px solid #0d64e6ff;
     background-color: #ffffff; // 배경색 줘야 스크롤되어 올라가는 행들이 안보임
-    box-sizing: border-box;
   }
 
   & th,
@@ -76,6 +75,7 @@ export const boardTable = css`
     padding: 12px 0;
     /* border-bottom: 1px solid #dbdbdb; */
     text-align: center;
+    box-sizing: border-box;
   }
 
   & td:first-of-type {
@@ -83,10 +83,12 @@ export const boardTable = css`
   }
 
   & td:nth-of-type(2) {
+    font-size: 17px;
     flex-grow: 1;
     text-align: left;
     padding: 0 20px;
     cursor: pointer;
+    box-sizing: border-box;
 
     &:hover {
       text-decoration: underline;
@@ -119,10 +121,38 @@ export const boardTable = css`
   }
 
   & td:last-of-type {
-    width: 150px;
+    width: 130px;
+    font-size: 15px;
   }
 
   & tbody > tr:nth-of-type(2n + 1) {
     background-color: #f3f3f3ff;
+  }
+`;
+
+export const paginateContainer = css`
+  width: 100%;
+  height: 50px;
+  margin: 15px 0;
+  display: flex;
+  justify-content: center;
+
+  & > ul {
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+
+    & > li {
+      padding: 3px;
+      box-sizing: border-box;
+      color: #333;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:hover {
+        font-weight: 500;
+        transform: translateY(-1px);
+      }
+    }
   }
 `;
