@@ -105,7 +105,7 @@ function Board() {
                     </td>
                     <td
                       onClick={() => {
-                        navigate(`/profile/${board.user.userId}`);
+                        navigate(`/user/${board.user.userId}`);
                       }}
                     >
                       {board.user.username}

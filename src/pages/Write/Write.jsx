@@ -20,7 +20,7 @@ function Write() {
       console.log(resp);
       if (resp.data.status === "success") {
         alert(resp.data.message);
-        navigate("/board/list");
+        navigate("/board");
       } else if (resp.data.status === "failed") {
         alert(resp.data.message);
         return;

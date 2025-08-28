@@ -28,7 +28,7 @@ function Header() {
       <div>
         <ul>
           <li>
-            <Link to={"/board/list"}>게시판</Link>
+            <Link to={"/board"}>게시판</Link>
           </li>
           <li>
             <Link to={"/write"}>글쓰기</Link>

@@ -40,3 +40,13 @@ export const addBoardRequest = async (data) => {
     return error.response;
   }
 };
+
+// 게시물 삭제 요청 함수
+export const deleteBoard = async (boardId) => {
+  try {
+    const response = await instance.post(`/board/delete/${boardId}`);
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};

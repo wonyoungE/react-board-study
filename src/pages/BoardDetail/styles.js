@@ -12,37 +12,52 @@ export const titleContainer = css`
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  padding-bottom: 15px;
-  border-bottom: 1px solid #dbdbdb;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #333;
 
   & > h1,
-  & > p {
+  & > div > p {
     margin: 0;
-    padding: 0;
+    padding: 0 10px;
   }
 
-  & > p {
+  & > div > p {
     font-size: 14px;
   }
 `;
 
 export const contentContainer = css`
-  margin-top: 20px;
+  margin: 12px 0px;
+  padding: 0 10px;
   min-height: 400px;
   font-size: 18px;
+  border-bottom: 2px solid #333;
 `;
 
 export const buttonContainer = css`
   display: flex;
-  justify-content: flex-end;
-  gap: 7px;
+  justify-content: space-between;
 
-  & > button {
-    border: none;
-    font-size: 16px;
-    padding: 5px 8px;
-    display: flex;
-    align-items: center;
+  & button {
+    border: 1px solid #333;
+    border-radius: 8px;
+    background-color: white;
+    padding: 6px 12px;
+    font-size: 15px;
     font-weight: 500;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      border: 1px solid white;
+      background-color: #333;
+      color: white;
+    }
+  }
+
+  & > div {
+    display: flex;
+    gap: 5px;
   }
 `;
