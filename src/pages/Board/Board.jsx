@@ -7,12 +7,14 @@ import { useNavigate } from "react-router-dom";
 import image6 from "../../assets/images/6.jpg";
 import { useQueryClient } from "@tanstack/react-query";
 import ReactPaginate from "react-paginate";
+import Pagination from "../../components/Pagination/Pagination";
 
 function Board() {
   const [message, setMessage] = useState("");
   const [boardList, setBoardList] = useState([]);
-  const [currentBoardList, setCurrentBoardList] = useState([]);
+  // const [currentBoardList, setCurrentBoardList] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
   const amountBoard = 15; // 한 페이지에 보여줄 게시물 수
 
   const navigate = useNavigate();
@@ -21,12 +23,15 @@ function Board() {
   const principalData = queryClient.getQueryData(["getPrincipal"]);
 
   useEffect(() => {
-    getBoardListRequest()
+    // 만약에 게시글이 10000개라면... 처음 15개 불러오는데도 10000개 다 불러와야함;;
+    // 10000개 다 불러온다 쳐도.. 10000개 전부를 boardList 상태에?
+    // 거기다가 최신 데이터 갱신도 불가능..
+    getBoardListRequest(currentPage, amountBoard)
       .then((resp) => {
-        console.log(resp.data.data);
         if (resp.data.status === "success") {
           // 객체의 배열
-          setBoardList(resp.data.data);
+          setBoardList(resp.data.data.boardList);
+          setTotalPages(resp.data.data.totalPages);
         } else if (resp.data.status === "failed") {
           setMessage(resp.data.message);
           setBoardList([]);
@@ -37,18 +42,18 @@ function Board() {
         alert("문제가 발생했습니다. 다시 시도해주세요.");
         return;
       });
-  }, []);
+  }, [currentPage]);
 
-  useEffect(() => {
-    const offset = currentPage * amountBoard;
-    const slicedBoard = boardList.slice(offset, offset + amountBoard); // 개수만큼 자르기
-    console.log(slicedBoard);
-    setCurrentBoardList(slicedBoard);
-  }, [currentPage, boardList]);
+  // useEffect(() => {
+  // const offset = currentPage * amountBoard; // 현재 페이지의 가장 첫번째가 되는 게시물의 인덱스
+  // const slicedBoard = boardList.slice(offset, offset + amountBoard); // 개수만큼 자르기
+  // console.log(slicedBoard);
+  // setCurrentBoardList(slicedBoard);
+  // }, [currentPage, boardList]);
 
-  const pageOnChangeHandler = (e) => {
-    setCurrentPage(e.selected);
-  };
+  // const pageOnChangeHandler = (e) => {
+  //   setCurrentPage(e.selected);
+  // };
 
   return (
     <div css={s.container}>
@@ -86,7 +91,7 @@ function Board() {
               </tr>
             </thead>
             <tbody>
-              {currentBoardList.map((board, index) => {
+              {boardList.map((board, index) => {
                 const boardNumber = currentPage * amountBoard + index + 1;
                 return (
                   <tr key={board.boardId}>
@@ -119,11 +124,16 @@ function Board() {
       {/* 페이지네이션할 때 마다 전체 불러와서 리소스 낭비임 */}
       {/* 프로젝트 할 때는 백엔드에 쿼리문 짤 때 그렇게 해라 */}
       <div css={s.paginateContainer}>
-        <ReactPaginate
-          pageCount={Math.ceil(boardList.length / amountBoard)}
+        {/* <ReactPaginate
+          pageCount={totalPages}
           onPageChange={pageOnChangeHandler}
           previousLabel={"이전"}
           nextLabel={"다음"}
+        /> */}
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
         />
       </div>
     </div>

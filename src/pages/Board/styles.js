@@ -130,29 +130,37 @@ export const boardTable = css`
   }
 `;
 
+// export const paginateContainer = css`
+//   width: 100%;
+//   height: 50px;
+//   margin: 15px 0;
+//   display: flex;
+//   justify-content: center;
+
+//   & > ul {
+//     width: 50%;
+//     display: flex;
+//     justify-content: space-between;
+
+//     & > li {
+//       padding: 3px;
+//       box-sizing: border-box;
+//       color: #333;
+//       cursor: pointer;
+//       transition: all 0.2s ease;
+
+//       &:hover {
+//         font-weight: 500;
+//         transform: translateY(-1px);
+//       }
+//     }
+//   }
+// `;
+
 export const paginateContainer = css`
   width: 100%;
   height: 50px;
   margin: 15px 0;
   display: flex;
   justify-content: center;
-
-  & > ul {
-    width: 50%;
-    display: flex;
-    justify-content: space-between;
-
-    & > li {
-      padding: 3px;
-      box-sizing: border-box;
-      color: #333;
-      cursor: pointer;
-      transition: all 0.2s ease;
-
-      &:hover {
-        font-weight: 500;
-        transform: translateY(-1px);
-      }
-    }
-  }
 `;

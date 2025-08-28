@@ -1,9 +1,11 @@
 import { instance } from "../utils/instance";
 
 // 게시물 목록 요청 함수
-export const getBoardListRequest = async () => {
+export const getBoardListRequest = async (page, size) => {
   try {
-    const response = await instance.get("/board/list");
+    const response = await instance.get(
+      `/board/list?page=${page}&size=${size}`
+    );
     return response;
   } catch (error) {
     return error.response;
