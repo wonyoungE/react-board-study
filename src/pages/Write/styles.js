@@ -56,22 +56,21 @@ export const btnBox = css`
   display: flex;
   justify-content: flex-end;
 
-  & > button {
-    border: none;
+  & button {
+    border: 1px solid #333;
     border-radius: 8px;
-    padding: 10px 15px;
-    cursor: pointer;
+    background-color: white;
+    padding: 6px 12px;
     font-size: 15px;
-    transition: all 0.2 ease;
-    background-color: #0d62fd;
-    color: white;
-    box-sizing: border-box;
-    border: 1px solid #dbdbdb;
+    font-weight: 500;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.2s ease;
 
     &:hover {
-      font-weight: 500;
-      background-color: white;
-      color: #0d62fd;
+      border: 1px solid white;
+      background-color: #333;
+      color: white;
     }
   }
 `;

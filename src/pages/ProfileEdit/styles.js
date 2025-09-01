@@ -20,7 +20,7 @@ export const imgBox = css`
     border-radius: 50%;
     width: 220px;
     height: 220px;
-    object-fit: fill;
+    object-fit: cover;
     background-color: #dbdbdb;
   }
 

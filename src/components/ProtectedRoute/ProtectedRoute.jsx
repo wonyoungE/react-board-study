@@ -1,4 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
+import { usePrincipalState } from "../../store/usePrincipalStore";
 
 function ProtectedRoute({ children }) {
   const queryClient = useQueryClient();

@@ -3,7 +3,6 @@ import { css } from "@emotion/react";
 export const container = css`
   width: 100%;
   height: 100%;
-  /* background-color: aliceblue; */
   padding: 20px;
   box-sizing: border-box;
 `;

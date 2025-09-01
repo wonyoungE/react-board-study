@@ -6,6 +6,7 @@ import { BiEditAlt } from "react-icons/bi";
 import { MdList } from "react-icons/md";
 import { useQueryClient } from "@tanstack/react-query";
 import { deleteBoard, getBoardDetailRequest } from "../../apis/board/boardApis";
+import { usePrincipalState } from "../../store/usePrincipalStore";
 
 /** @jsxImportSource @emotion/react */
 function BoardDetail() {
@@ -15,6 +16,7 @@ function BoardDetail() {
   const queryClient = useQueryClient();
   // 캐시에 저장되어있는 getPrincipal 가져오기
   const principalData = queryClient.getQueryData(["getPrincipal"]);
+  const { isLoggedIn, principal } = usePrincipalState();
 
   useEffect(() => {
     getBoardDetailRequest(boardId)
@@ -80,7 +82,7 @@ function BoardDetail() {
           <MdList />
           목록
         </button>
-        {principalData.data.data.userId === parseInt(board?.user?.userId) ? (
+        {principal.userId === parseInt(board?.user?.userId) ? (
           <div>
             <button
               onClick={() => {

@@ -3,10 +3,10 @@ import Profile from "../../pages/Profile/Profile";
 import ProfileEdit from "../../pages/ProfileEdit/ProfileEdit";
 import ProtectedRoute from "../../components/ProtectedRoute/ProtectedRoute";
 
-function UserRouter() {
+function AccountRouter() {
   return (
     <Routes>
-      <Route path="/:userId" element={<Profile />} />
+      <Route path="/profile/:userId" element={<Profile />} />
 
       <Route
         path="/edit/:userId"
@@ -20,4 +20,4 @@ function UserRouter() {
   );
 }
 
-export default UserRouter;
+export default AccountRouter;

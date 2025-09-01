@@ -5,23 +5,22 @@ export const container = css`
   height: 100%;
   display: flex;
   flex-direction: column;
-  padding: 40px 10px;
+  padding: 40px 200px;
   box-sizing: border-box;
   gap: 20px;
 `;
 
-export const top = css`
+export const profileHeader = css`
   width: 100%;
   height: 200px;
   display: flex;
-  /* padding: 10px 0; */
-  border-bottom: 1px solid #dbdbdb;
 `;
 
-export const leftBox = css`
+export const profileImgBox = css`
   width: 40%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
 
   & > img {
@@ -30,32 +29,35 @@ export const leftBox = css`
     border: 1px solid #dbdbdb;
     background-color: white;
     border-radius: 50%;
-    object-fit: fill;
+    object-fit: cover;
     padding: 0;
     margin: 0;
   }
 `;
 
-export const rightBox = css`
+export const profileInfoBox = css`
   width: 60%;
+  padding: 0 10px;
+  box-sizing: border-box;
+  color: #333;
 
   & > div {
     display: flex;
     gap: 5px;
+  }
+`;
 
-    & > button {
-      display: inline-block;
-      border: none;
-      background-color: transparent;
-      box-sizing: border-box;
+export const settingBtn = css`
+  display: inline-block;
+  border: none;
+  background-color: transparent;
+  box-sizing: border-box;
 
-      & > svg {
-        padding: 0;
-        margin: 0;
-        font-size: 20px;
-        cursor: pointer;
-      }
-    }
+  & > svg {
+    padding: 0;
+    margin: 0;
+    font-size: 20px;
+    cursor: pointer;
   }
 `;
 
@@ -69,14 +71,33 @@ export const username = css`
 
 export const email = css`
   display: flex;
-  justify-content: flex-start;
   align-items: center;
-  gap: 5px;
-  font-size: 16px;
-  line-height: 16px;
+  gap: 10px;
 
-  & > svg {
-    font-size: 22px;
+  & > div {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
+    font-size: 16px;
+    line-height: 16px;
+
+    & > svg {
+      font-size: 22px;
+    }
+  }
+`;
+
+export const emailAdmitBtn = css`
+  border: 1px solid #dbdbdb;
+  background-color: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    /* background-color: #dbdbdb; */
+    box-shadow: 0px 0px 2px 0px rgba(168, 168, 168, 0.89);
   }
 `;
 
@@ -93,11 +114,46 @@ export const createDt = css`
   }
 `;
 
-export const bottom = css`
+export const profileBox = css`
   width: 100%;
+  /* flex-grow: 1; */
+  border: 1px solid #dbdbdb;
+  box-sizing: border-box;
+`;
+
+export const profileTab = (tabChild) => css`
+  width: 100%;
+  height: 40px;
+  border-bottom: 1px solid #dbdbdb;
+  box-sizing: border-box;
 
   & > ul {
     display: flex;
-    gap: 10px;
+
+    & > li {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 40px;
+      padding: 0 14px;
+      font-size: 14px;
+      border-right: 1px solid #dbdbdb;
+      box-sizing: border-box;
+      cursor: pointer;
+
+      &:nth-of-type(${tabChild}) {
+        border-bottom: 1px solid #ffffff;
+      }
+
+      &:hover {
+        font-weight: 500;
+        background-color: #f2f2f2;
+      }
+    }
   }
+`;
+
+export const profileMain = css`
+  width: 100%;
+  height: 460px;
 `;

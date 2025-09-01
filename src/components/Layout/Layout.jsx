@@ -2,9 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 import { getPrincipalRequest } from "../../apis/auth/authApis";
 import Header from "../Header/Header";
 import * as s from "./styles";
+import { useEffect } from "react";
+import { usePrincipalState } from "../../store/usePrincipalStore";
 
 /** @jsxImportSource @emotion/react */
 function Layout({ children }) {
+  const { login } = usePrincipalState();
   const accessToken = localStorage.getItem("accessToken");
   const { data, isLoading } = useQuery({
     //
@@ -17,7 +20,15 @@ function Layout({ children }) {
     // enabled: false가 되면.. => 1. 데이터 무효화: getPrincipal이라는 키로 캐시된 데이터를 '오래된(state)' 상태로 표시
     // => 2. 데이터 가져오기 중단: 캐시된 데이터가 있더라도 이 데이터를 재검증하거나 백그라운드에서 다시 가져오는 작업 모두 중단
     // => 3. 데이터 초기화: queryClient.removeQueries(["getPrincipal"])로 캐시된 데이터 직접 삭제 가능
+
+    // queryClient.invalidateQueries([{queryKey: "getPrincipal"}]) => 데이터 무효화, 다시 가져오게 함
   });
+
+  useEffect(() => {
+    if (data?.data.status === "success") {
+      login(data?.data.data);
+    }
+  }, [data, login]);
 
   return (
     <div css={s.layout}>

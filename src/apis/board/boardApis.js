@@ -50,3 +50,13 @@ export const deleteBoard = async (boardId) => {
     return error.response;
   }
 };
+
+// 게시물 수정 요청 함수
+export const updateBoardRequest = async (data) => {
+  try {
+    const response = await instance.post("/board/update", data);
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};

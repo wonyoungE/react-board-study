@@ -38,12 +38,6 @@ function Write() {
       return;
     }
 
-    // 로그인 안돼있을 경우
-    if (principalData === undefined) {
-      alert("로그인이 필요합니다.");
-      navigate("/auth/signin");
-    }
-
     // api요청
     // mutate 안에 body에 들어갈 것들 넣어주면 됨
     // mutate의 장점: 성공 / 에러 분기 미리 잡아둘 수 있음

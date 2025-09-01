@@ -5,7 +5,7 @@ import AuthRouter from "../AuthRouter/AuthRouter";
 import BoardRouter from "../BoardRouter/BoardRouter";
 import Profile from "../../pages/Profile/Profile";
 import ProtectedRoute from "../../components/ProtectedRoute/ProtectedRoute";
-import UserRouter from "../UserRouter/UserRouter";
+import AccountRouter from "../AccountRouter/AccountRouter";
 
 function MainRouter() {
   return (
@@ -21,10 +21,9 @@ function MainRouter() {
             </ProtectedRoute>
           }
         />
-        <Route path="/profile/:userId" element={<Profile />} />
         {/* 중첩 라우터 */}
         <Route path="/auth/*" element={<AuthRouter />} />
-        <Route path="/user/*" element={<UserRouter />} />
+        <Route path="/account/*" element={<AccountRouter />} />
       </Routes>
     </>
   );

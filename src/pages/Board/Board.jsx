@@ -8,6 +8,7 @@ import image6 from "../../assets/images/6.jpg";
 import { useQueryClient } from "@tanstack/react-query";
 import ReactPaginate from "react-paginate";
 import Pagination from "../../components/Pagination/Pagination";
+import { usePrincipalState } from "../../store/usePrincipalStore";
 
 function Board() {
   const [message, setMessage] = useState("");
@@ -21,6 +22,8 @@ function Board() {
   const queryClient = useQueryClient();
   // 캐시에 저장되어있는 getPrincipal 가져오기
   const principalData = queryClient.getQueryData(["getPrincipal"]);
+
+  const { isLoggedIn, principal } = usePrincipalState();
 
   useEffect(() => {
     // 만약에 게시글이 10000개라면... 처음 15개 불러오는데도 10000개 다 불러와야함;;
@@ -63,7 +66,7 @@ function Board() {
           <h2>글 목록</h2>
           <button
             onClick={() => {
-              if (principalData === undefined) {
+              if (!isLoggedIn) {
                 alert("로그인이 필요합니다.");
                 window.location.href = "/auth/signin";
                 return;
@@ -105,7 +108,7 @@ function Board() {
                     </td>
                     <td
                       onClick={() => {
-                        navigate(`/user/${board.user.userId}`);
+                        navigate(`/account/profile/${board.user.userId}`);
                       }}
                     >
                       {board.user.username}
