@@ -86,18 +86,24 @@ export const email = css`
       font-size: 22px;
     }
   }
+
+  & > span {
+    color: #357feeff;
+  }
 `;
 
 export const emailAdmitBtn = css`
-  border: 1px solid #dbdbdb;
-  background-color: none;
+  border: none;
+  background-color: #0d6efd;
+  color: white;
+  font-size: 13px;
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.2s ease;
 
   &:hover {
     /* background-color: #dbdbdb; */
-    box-shadow: 0px 0px 2px 0px rgba(168, 168, 168, 0.89);
+    box-shadow: 0px 0px 3px 0px rgba(168, 168, 168, 0.89);
   }
 `;
 

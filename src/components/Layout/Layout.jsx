@@ -7,10 +7,10 @@ import { usePrincipalState } from "../../store/usePrincipalStore";
 
 /** @jsxImportSource @emotion/react */
 function Layout({ children }) {
-  const { login } = usePrincipalState();
+  const { login, setIsLoading } = usePrincipalState();
   const accessToken = localStorage.getItem("accessToken");
+  //
   const { data, isLoading } = useQuery({
-    //
     queryKey: ["getPrincipal"], // React Query가 캐싱 관리할 수 있게 해줌, = 캐시에 저장되어있는 이름? 키 값?
     queryFn: getPrincipalRequest, // axios 요청 함수가 들어감
     refetch: 1, // 요청 실패했을 때 얼마나 다시 시도해볼 것인지
@@ -22,6 +22,10 @@ function Layout({ children }) {
     // => 3. 데이터 초기화: queryClient.removeQueries(["getPrincipal"])로 캐시된 데이터 직접 삭제 가능
 
     // queryClient.invalidateQueries([{queryKey: "getPrincipal"}]) => 데이터 무효화, 다시 가져오게 함
+    // 3. 요청이 끝나면 (성공/실패 무관) 로딩 상태를 false로 변경
+    onSettled: () => {
+      setIsLoading(false);
+    },
   });
 
   useEffect(() => {
@@ -29,6 +33,13 @@ function Layout({ children }) {
       login(data?.data.data);
     }
   }, [data, login]);
+
+  useEffect(() => {
+    // 토큰이 없을 경우 로딩 상태 아님을 알려주기
+    if (!accessToken) {
+      setIsLoading(false);
+    }
+  }, []);
 
   return (
     <div css={s.layout}>

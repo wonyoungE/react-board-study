@@ -17,7 +17,7 @@ export const inputBox = css`
 
   & > button {
     border: none;
-    padding: 12px 15px;
+    padding: 10px 12px;
     border-radius: 8px;
     font-size: 15px;
     background-color: #0d6efd;
@@ -27,6 +27,18 @@ export const inputBox = css`
 
     &:hover {
       background-color: #0e64e6ff;
+    }
+  }
+
+  & > ul {
+    width: 100%;
+    list-style: inside;
+
+    & > li {
+      padding: 0;
+      margin: 0;
+      font-size: 12px;
+      color: red;
     }
   }
 `;

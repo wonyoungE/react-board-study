@@ -12,6 +12,15 @@ export const getBoardListRequest = async (page, size) => {
   }
 };
 
+export const getBoardListByUserIdRequest = async (userId) => {
+  try {
+    const response = await instance.get(`/board/list/${userId}`);
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};
+
 // 특정 게시물 요청 함수
 export const getBoardDetailRequest = async (boardId) => {
   try {

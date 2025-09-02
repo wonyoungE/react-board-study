@@ -4,12 +4,14 @@ import * as s from "./styles";
 import { getUserByUserId } from "../../apis/user/userApis";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { MdOutlineCalendarToday, MdOutlineEmail } from "react-icons/md";
-import { useQueryClient } from "@tanstack/react-query";
+import { RiVerifiedBadgeFill } from "react-icons/ri";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { CiSettings } from "react-icons/ci";
 import defaultProfileImg from "../../assets/images/default.png";
 import ProfileBoard from "../MyBoard/MyBoard";
 import ChangePw from "../ChangePw/ChangePw";
 import { usePrincipalState } from "../../store/usePrincipalStore";
+import { sendMailRequest } from "../../apis/account/accountApis";
 
 function Profile() {
   const { userId } = useParams();
@@ -18,16 +20,23 @@ function Profile() {
   const [userInfo, setUserInfo] = useState({});
   const [curView, setCurView] = useState("myboard");
   const [tabChild, setTabChild] = useState(1);
-  // const queryClient = useQueryClient();
-  // // 캐시에 저장되어있는 getPrincipal 가져오기
-  // const principalData = queryClient.getQueryData(["getPrincipal"]);
-
   const { isLoggedIn, principal } = usePrincipalState();
 
   const tabClickHandler = (path) => {
     // navigate(`${pathname}?tab=${path}`);
     setCurView(path);
     setTabChild(path === "myboard" ? 1 : 2);
+  };
+
+  const onClickVerifyHandler = () => {
+    console.log("이메일 인증");
+    sendMailRequest({ email: principal.email }).then((resp) => {
+      if (resp.data.status === "success") {
+        alert(resp.data.message);
+      } else if (resp.data.status === "failed") {
+        alert(resp.data.message);
+      }
+    });
   };
 
   useEffect(() => {
@@ -76,9 +85,13 @@ function Profile() {
               <MdOutlineEmail /> <span>{userInfo.email}</span>
             </div>
             {principal?.authorities[0].authority === "ROLE_TEMPORARY" ? (
-              <button css={s.emailAdmitBtn}>인증하기</button>
+              <button onClick={onClickVerifyHandler} css={s.emailAdmitBtn}>
+                인증하기
+              </button>
             ) : (
-              <></>
+              <span>
+                <RiVerifiedBadgeFill />
+              </span>
             )}
           </div>
           <div css={s.createDt}>
@@ -107,7 +120,11 @@ function Profile() {
           </ul>
         </div>
         <div css={s.profileMain}>
-          {curView === "myboard" ? <ProfileBoard /> : <ChangePw />}
+          {curView === "myboard" ? (
+            <ProfileBoard userId={userId} />
+          ) : (
+            <ChangePw />
+          )}
         </div>
       </div>
     </div>

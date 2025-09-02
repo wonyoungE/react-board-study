@@ -1,5 +1,5 @@
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { storage } from "./firebaseConfig";
+import { storage } from "../config/firebaseConfig";
 import { v4 as uuidv4 } from "uuid";
 
 // 파일을 업로드하고 다운로드 URL을 반환하는 비동기 함수

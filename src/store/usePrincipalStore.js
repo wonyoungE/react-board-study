@@ -4,6 +4,7 @@ import { create } from "zustand";
 // 전역 상태, 외부에서 불러쓸 거기 때문에 export
 export const usePrincipalState = create((set, get) => ({
   // 초기값 설정
+  isLoading: true, // principal api 요청 중?
   isLoggedIn: false,
   principal: null,
 
@@ -14,7 +15,7 @@ export const usePrincipalState = create((set, get) => ({
     set({ isLoggedIn: false, principal: null });
     window.location.href = "/auth/signin";
   },
-
+  setIsLoading: (status) => set({ isLoading: status }),
   // get : 현재 상태 가져와서 무엇을 해야하면 쓰면 된다.
   // set안에서 쓸 수 있는 것
 }));

@@ -1,9 +1,26 @@
 /** @jsxImportSource @emotion/react */
 import { useNavigate } from "react-router-dom";
 import * as s from "./styles";
+import { useEffect, useState } from "react";
+import { getBoardListByUserIdRequest } from "../../apis/board/boardApis";
 
-function ProfileBoard() {
+function ProfileBoard({ userId }) {
   const navigate = useNavigate();
+  const [boardList, setBoardList] = useState([]);
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    getBoardListByUserIdRequest(userId).then((resp) => {
+      if (resp.data.status === "success") {
+        setBoardList(resp.data.data);
+        return;
+      } else if (resp.data.status === "failed") {
+        setBoardList([]);
+        setMessage(resp.data.message);
+      }
+    });
+  }, []);
+
   return (
     <div css={s.container}>
       <table css={s.boardTable}>
@@ -15,11 +32,10 @@ function ProfileBoard() {
           </tr>
         </thead>
         <tbody>
-          {/* {boardList.map((board, index) => {
-            const boardNumber = currentPage * amountBoard + index + 1;
+          {boardList.map((board, index) => {
             return (
               <tr key={board.boardId}>
-                <td>{boardNumber}</td>
+                <td>{index}</td>
                 <td
                   onClick={() => {
                     navigate(`/board/${board.boardId}`);
@@ -30,20 +46,7 @@ function ProfileBoard() {
                 <td>{board.createDt.split("T")[0]}</td>
               </tr>
             );
-          })} */}
-          <tr key={1}>
-            <td>1</td>
-            <td
-            // onClick={() => {
-            //   navigate(`/board/${board.boardId}`);
-            // }}
-            >
-              {/* {board.title} */}
-              제목
-            </td>
-            {/* <td>{board.createDt.split("T")[0]}</td> */}
-            <td>2025.09.01</td>
-          </tr>
+          })}
         </tbody>
       </table>
     </div>
