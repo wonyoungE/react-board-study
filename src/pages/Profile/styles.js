@@ -161,5 +161,4 @@ export const profileTab = (tabChild) => css`
 
 export const profileMain = css`
   width: 100%;
-  height: 460px;
 `;

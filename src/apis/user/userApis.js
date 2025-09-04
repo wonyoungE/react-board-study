@@ -9,13 +9,3 @@ export const getUserByUserId = async (userId) => {
     return error.response;
   }
 };
-
-// 프로필 수정 요청 함수
-export const updateUser = async (data) => {
-  try {
-    const response = await instance.post(`/user/edit/${data.userId}`, data);
-    return response;
-  } catch (error) {
-    return error.response;
-  }
-};

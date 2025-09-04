@@ -29,7 +29,6 @@ function Header() {
   // 이럴 때 useMutation 사용해서 principalData 무효화하고 다시 발급받는 로직 짜면 됨
 
   useEffect(() => {
-    console.log(principal);
     function handleClickOutside(event) {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         setIsMenuOpen(false);
@@ -112,9 +111,7 @@ function Header() {
           <>
             <img
               css={s.profileImg}
-              src={
-                principal?.profileImg ? principal.profileImg : defaultProfileImg
-              }
+              src={principal ? principal.profileImg : defaultProfileImg}
               alt=""
               onClick={profileImgOnClickHandler}
             />

@@ -1,13 +1,16 @@
 /** @jsxImportSource @emotion/react */
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as s from "./styles";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
-import { getUserByUserId, updateUser } from "../../apis/user/userApis";
+import { getUserByUserId } from "../../apis/user/userApis";
 import defaultProfileImg from "../../assets/images/default.png";
 import { FiCamera } from "react-icons/fi";
 import { uploadProfileImg } from "../../apis/firebase/firebaseApis";
 import { usePrincipalState } from "../../store/usePrincipalStore";
+import { updateUser } from "../../apis/account/accountApis";
+import { storage } from "../../apis/config/firebaseConfig";
+import { ref } from "firebase/storage";
 
 function ProfileEdit() {
   const { userId } = useParams();
@@ -20,9 +23,12 @@ function ProfileEdit() {
   const [username, setUsername] = useState("");
   // const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [profileImg, setProfileImg] = useState(defaultProfileImg); // 미리보기용
+  const [profileImg, setProfileImg] = useState(principal?.profie); // 미리보기용
   const [originProfileImg, setOriginProfileImg] = useState(""); // 원래 이미지 경로
   const [uploadFile, setUploadFile] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const imgInput = useRef();
 
   // useMutation
   // 성공했을 때, 실패했을 때,
@@ -36,7 +42,7 @@ function ProfileEdit() {
         // principalData 쿼리 무효화하고 새로 요청해줘야 헤더에 있는 프로필 사진도 변경됨
         queryClient.invalidateQueries({ queryKey: ["getPrincipal"] });
 
-        navigate(`/profile/${userId}`);
+        window.location.reload();
       } else if (resp.data.status === "failed") {
         alert(resp.data.message);
         return;
@@ -49,8 +55,8 @@ function ProfileEdit() {
   });
 
   useEffect(() => {
-    if (principal.userId !== parseInt(userId)) {
-      alert("접근 권한이 없습니다.");
+    if (principal?.userId !== parseInt(userId)) {
+      // alert("접근 권한이 없습니다.");
       navigate(-1);
       return;
     }
@@ -78,6 +84,10 @@ function ProfileEdit() {
     setUsername(e.target.value);
   };
 
+  const imgInputOnClickHandler = () => {
+    imgInput.current.click();
+  };
+
   const profileImgOnChangeHandler = (e) => {
     const file = e.target.files[0];
     if (!file) {
@@ -92,39 +102,47 @@ function ProfileEdit() {
   };
 
   const saveBtnOnClickHandler = async () => {
+    console.log("변경");
     let changeProfileImg = originProfileImg;
+    let downloadURL = "";
+    setIsUploading(true);
 
-    if (uploadFile) {
-      // 새로 업로드된 파일이 있을 때 실행
-      try {
-        changeProfileImg = await uploadProfileImg(uploadFile);
-      } catch (error) {
-        alert("이미지 업로드 중 오류가 발생했습니다.");
-        return;
-      }
+    // 새로 업로드된 파일이 있을 때 실행
+    try {
+      // changeProfileImg = await uploadProfileImg(uploadFile);
+      downloadURL = await uploadProfileImg(
+        uploadFile,
+        setProgress,
+        setIsUploading
+      );
+      console.log(downloadURL);
+
+      // 서버에 업데이트 요청
+      const updateData = {
+        userId: userId,
+        username: username,
+        profileImg: downloadURL,
+      };
+      updateUserMutation.mutate(updateData);
+    } catch (error) {
+      alert("이미지 업로드 중 오류가 발생했습니다.");
+      return;
     }
-
-    // 서버에 업데이트 요청
-    const updateData = {
-      userId: userId,
-      username: username,
-      profileImg: changeProfileImg,
-    };
-    updateUserMutation.mutate(updateData);
   };
 
   return (
     <div css={s.container}>
       <div css={s.imgBox}>
         <img src={profileImg} alt="" />
-        <label htmlFor="file-input">
+        <div css={s.imgBtn} onClick={imgInputOnClickHandler}>
           <FiCamera />
-        </label>
+        </div>
         <input
           type="file"
           id="file-input"
-          accept="image/jpg image/jpeg image/png"
+          accept="image/*" // 이미지 종류의 확장자만 받을 것
           onChange={profileImgOnChangeHandler}
+          ref={imgInput}
         />
       </div>
       <div css={s.inputBox}>
@@ -147,9 +165,11 @@ function ProfileEdit() {
         <button>취소</button>
         <button
           onClick={saveBtnOnClickHandler}
-          disabled={updateUserMutation.isPending}
+          // disabled={updateUserMutation.isPending}
+          disabled={isUploading}
         >
-          {updateUserMutation.isPending ? "저장 중..." : "저장"}
+          {isUploading ? progress : "변경하기"}
+          {/* {updateUserMutation.isPending ? "저장 중..." : "저장"} */}
         </button>
       </div>
     </div>

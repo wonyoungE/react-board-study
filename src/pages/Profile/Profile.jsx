@@ -59,10 +59,7 @@ function Profile() {
     <div css={s.container}>
       <div css={s.profileHeader}>
         <div css={s.profileImgBox}>
-          <img
-            src={userInfo.profileImg ? userInfo.profileImg : defaultProfileImg}
-            alt="프로필 이미지"
-          />
+          <img src={userInfo.profileImg} alt="프로필 이미지" />
         </div>
         <div css={s.profileInfoBox}>
           <div>

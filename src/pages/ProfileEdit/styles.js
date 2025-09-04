@@ -24,35 +24,27 @@ export const imgBox = css`
     background-color: #dbdbdb;
   }
 
-  & > label {
-    position: absolute;
-    bottom: 5%;
-    right: 5%;
-    width: 40px;
-    height: 40px;
-    border: 3px solid white;
-    background-color: #bdbdbdff;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-
-    & > svg {
-      font-size: 22px;
-    }
-  }
-
   & > input {
-    padding: 0;
-    margin: 0;
-    width: 40px;
-    height: 40px;
     display: none;
-    border: 3px solid white;
-    background-color: #bdbdbdff;
-    border-radius: 50%;
-    position: absolute;
+  }
+`;
+
+export const imgBtn = css`
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
+  width: 40px;
+  height: 40px;
+  border: 3px solid white;
+  background-color: #bdbdbdff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  & > svg {
+    font-size: 22px;
   }
 `;
 
